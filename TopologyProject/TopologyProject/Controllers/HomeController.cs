@@ -1,32 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using TopologyProject.Models;
+using System.Text.Json;
+using System.IO;
 
 namespace TopologyProject.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public IActionResult GetJson()
         {
-            _logger = logger;
-        }
+            string path = Path.Combine(Environment.CurrentDirectory, "wwwroot", "features.json");
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+            Console.WriteLine(path);
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+            var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(System.IO.File.Open(path, FileMode.Open));
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            Console.WriteLine($"------------------- {featureCollection.features.Where(feature => feature.type == "Feature").Count()}");
+
+            return Json(featureCollection);
         }
     }
 }
