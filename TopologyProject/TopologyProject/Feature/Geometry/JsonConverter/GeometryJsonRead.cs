@@ -91,12 +91,12 @@ namespace TopologyProject
             }
         }
 
-        private Coordinates GetCoordinates(ref Utf8JsonReader reader)
+        private Coordinate GetCoordinates(ref Utf8JsonReader reader)
         {
             if (reader.TokenType != JsonTokenType.StartArray)
                 throw new JsonException();
 
-            Coordinates result = new();
+            Coordinate result = new();
 
             reader.Read();
             result.x = reader.GetDouble();

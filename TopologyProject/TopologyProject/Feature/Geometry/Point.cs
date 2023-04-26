@@ -2,6 +2,6 @@
 {
     public class Point: Geometry
     {
-        public Coordinates coordinate;
+        public Coordinate coordinate;
     }
 }

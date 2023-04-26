@@ -45,7 +45,7 @@ namespace TopologyProject
             writer.WriteEndArray();
         }
 
-        private void WriteCoordinate(Utf8JsonWriter writer, Coordinates coordinates)
+        private void WriteCoordinate(Utf8JsonWriter writer, Coordinate coordinates)
         {
             writer.WriteStartArray();
 
