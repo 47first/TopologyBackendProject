@@ -1,6 +1,6 @@
 ﻿namespace TopologyProject
 {
-    public struct Point: IGeometry
+    public class Point: Geometry
     {
         public Coordinates point;
     }
