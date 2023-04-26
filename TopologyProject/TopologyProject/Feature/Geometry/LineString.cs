@@ -2,7 +2,6 @@
 {
     public class LineString : Geometry
     {
-        public Coordinates from;
-        public Coordinates to;
+        public readonly List<Coordinates> lines = new();
     }
 }

@@ -79,9 +79,16 @@ namespace TopologyProject
 
         private void FillLineStringCoordinates(ref Utf8JsonReader reader, LineString lineString)
         {
-            lineString.from = GetCoordinates(ref reader);
+            if (reader.TokenType != JsonTokenType.StartArray)
+                throw new JsonException();
 
-            lineString.to = GetCoordinates(ref reader);
+            while (reader.Read())
+            {
+                if (reader.TokenType == JsonTokenType.EndArray)
+                    return;
+
+                lineString.lines.Add(GetCoordinates(ref reader));
+            }
         }
 
         private Coordinates GetCoordinates(ref Utf8JsonReader reader)
@@ -91,15 +98,10 @@ namespace TopologyProject
 
             Coordinates result = new();
 
-            if (reader.TokenType != JsonTokenType.Number)
-                throw new JsonException();
-
+            reader.Read();
             result.x = reader.GetDouble();
 
             reader.Read();
-            if (reader.TokenType != JsonTokenType.Number)
-                throw new JsonException();
-
             result.y = reader.GetDouble();
 
             reader.Read();
@@ -111,7 +113,7 @@ namespace TopologyProject
 
         private void FillPointCoordinates(ref Utf8JsonReader reader, Point point)
         {
-            point.point = GetCoordinates(ref reader);
+            point.coordinate = GetCoordinates(ref reader);
         }
     }
 }
