@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Text.Json;
 using TopologyProject;
 
@@ -8,7 +7,7 @@ namespace TopologyProjectTests
     public class GeometryJsonTest
     {
         [TestMethod]
-        public void GeometryJsonReadWithoutExceptions()
+        public void ReadWithoutExceptions()
         {
             string json = GetTestJson();
 
@@ -18,7 +17,7 @@ namespace TopologyProjectTests
         }
 
         [TestMethod]
-        public void GeometryJsonWriteWithoutExceptions()
+        public void WriteWithoutExceptions()
         {
             string json = GetTestJson();
 
@@ -30,7 +29,7 @@ namespace TopologyProjectTests
         }
 
         [TestMethod]
-        public void SerializeDeserializeTest()
+        public void IsInitialAndSerializedValuesEquals()
         {
             string json = GetTestJson();
 
@@ -38,7 +37,7 @@ namespace TopologyProjectTests
 
             json = JsonSerializer.Serialize(featureCollection);
 
-            File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "result.json"), json);
+            //File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "result.json"), json);
 
             featureCollection = JsonSerializer.Deserialize<FeatureCollection>(json);
 
