@@ -1,22 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System.IO;
 
 namespace TopologyProject.Controllers
 {
     public class HomeController : Controller
     {
+        private FeaturesDbContext _db;
+        public HomeController(FeaturesDbContext db)
+        {
+            _db = db;
+        }
+
         public IActionResult GetJson()
         {
-            string path = Path.Combine(Environment.CurrentDirectory, "wwwroot", "features.json");
+            _db.Features.Add(new() { Id = "123", Json = "{ \"name\" = \"Bebra\" }" });
 
-            Console.WriteLine(path);
+            _db.SaveChanges();
 
-            var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(System.IO.File.Open(path, FileMode.Open));
-
-            Console.WriteLine($"------------------- {featureCollection.features.Where(feature => feature.type == "Feature").Count()}");
-
-            return Json(featureCollection);
+            return Content(" ");
         }
     }
 }

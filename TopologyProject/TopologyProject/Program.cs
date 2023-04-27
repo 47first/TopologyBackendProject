@@ -1,13 +1,12 @@
-using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using TopologyProject;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var jsonSerializerOptions = new JsonSerializerOptions();
-//jsonSerializerOptions.Converters.Add(new GeomentryJsonConverter());
+string? connectionString = builder.Configuration.GetConnectionString("FeatureCollection");
 
+builder.Services.AddDbContext<FeaturesDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton(jsonSerializerOptions);
 
 var app = builder.Build();
 
