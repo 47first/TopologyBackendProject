@@ -17,6 +17,10 @@ app.UseRouting();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=GetJson}");
+    pattern: "{controller=Home}/{action=Index}");
+
+app.MapControllerRoute(
+    name: "api",
+    pattern: "api/{controller=Features}/{action=GetJson}");
 
 app.Run();

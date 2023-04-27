@@ -4,10 +4,23 @@ namespace TopologyProject
 {
     public sealed class FeaturesDbContext: DbContext
     {
-        public DbSet<FeaturesModel> Features { get; set; } = null!;
+        public DbSet<FeatureModel> Features { get; set; } = null!;
+
         public FeaturesDbContext(DbContextOptions options) : base(options)
         {
             Database.EnsureCreated();
+        }
+
+        public void FillDataFeatureCollection(FeatureCollection featureCollection)
+        {
+            foreach (var feature in featureCollection.Features)
+                Features.Add(feature.ToFeatureModel());
+        }
+
+        public void ClearFeatures()
+        {
+            foreach (var featureModel in Features)
+                Features.Remove(featureModel);
         }
     }
 }

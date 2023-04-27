@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace TopologyProject
 {
@@ -8,5 +9,15 @@ namespace TopologyProject
         public string Id { get; set; } = null!;
         public Dictionary<string, string>? Properties { get; set; }
         [JsonConverter(typeof(GeomentryJsonConverter))]public Geometry Geometry { get; set; } = null!;
+
+        public FeatureModel ToFeatureModel()
+        {
+            var featureModel = new FeatureModel();
+
+            featureModel.Id = Id;
+            featureModel.Json = JsonSerializer.Serialize(this);
+
+            return featureModel;
+        }
     }
 }
