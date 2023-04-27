@@ -4,9 +4,9 @@ namespace TopologyProject
 {
     public class Feature
     {
-        public string type { get; set; }
-        public string id { get; set; }
-        public Dictionary<string, string> properties { get; set; }
-        [JsonConverter(typeof(GeomentryJsonConverter))]public Geometry geometry { get; set; }
+        public string Type { get; set; } = null!;
+        public string Id { get; set; } = null!;
+        public Dictionary<string, string>? Properties { get; set; }
+        [JsonConverter(typeof(GeomentryJsonConverter))]public Geometry Geometry { get; set; } = null!;
     }
 }

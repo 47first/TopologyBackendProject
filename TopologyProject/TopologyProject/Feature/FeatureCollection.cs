@@ -2,7 +2,7 @@
 {
     public class FeatureCollection
     {
-        public string type { get; set; }
-        public List<Feature> features { get; set; }
+        public string Type { get; set; } = "FeatureCollection";
+        public List<Feature> Features { get; set; }
     }
 }

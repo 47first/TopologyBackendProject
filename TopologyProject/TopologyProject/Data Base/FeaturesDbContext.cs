@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TopologyProject
 {
@@ -10,12 +9,5 @@ namespace TopologyProject
         {
             Database.EnsureCreated();
         }
-    }
-
-    [Table("Features")]
-    public class FeaturesModel
-    {
-        public string Id { get; set; }
-        public string? Json { get; set; }
     }
 }

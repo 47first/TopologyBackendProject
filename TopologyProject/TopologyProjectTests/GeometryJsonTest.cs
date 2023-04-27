@@ -37,8 +37,6 @@ namespace TopologyProjectTests
 
             json = JsonSerializer.Serialize(featureCollection);
 
-            //File.WriteAllText(Path.Combine(Environment.CurrentDirectory, "result.json"), json);
-
             featureCollection = JsonSerializer.Deserialize<FeatureCollection>(json);
 
             string result = JsonSerializer.Serialize(featureCollection);

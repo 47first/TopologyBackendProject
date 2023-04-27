@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "URwN8NoNDmyOQuDDE25OIS0PUKmuyMdX5Xw8+RnewollKXXFflTqiQmoxXDzT2uY6F14/+v1h76PLaGPtRxOLQ==",
+  "dgSpecHash": "df77btxhlzhpw0Dk4U8QXSZESlE133S4Shl9kSNG/67a6mv5MDN77vN0pCCgnboHt3kLhyYl5NlCw0YYt3TljQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\lyagu\\Desktop\\TopologyBackendProject\\TopologyProject\\TopologyProjectTests\\TopologyProjectTests.csproj",
   "expectedPackageFiles": [
@@ -134,8 +134,8 @@
     "C:\\Users\\lyagu\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
     "C:\\Users\\lyagu\\.nuget\\packages\\system.text.encoding.codepages\\5.0.0\\system.text.encoding.codepages.5.0.0.nupkg.sha512",
     "C:\\Users\\lyagu\\.nuget\\packages\\system.text.encoding.extensions\\4.3.0\\system.text.encoding.extensions.4.3.0.nupkg.sha512",
-    "C:\\Users\\lyagu\\.nuget\\packages\\system.text.encodings.web\\4.7.2\\system.text.encodings.web.4.7.2.nupkg.sha512",
-    "C:\\Users\\lyagu\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512",
+    "C:\\Users\\lyagu\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
+    "C:\\Users\\lyagu\\.nuget\\packages\\system.text.json\\7.0.2\\system.text.json.7.0.2.nupkg.sha512",
     "C:\\Users\\lyagu\\.nuget\\packages\\system.text.regularexpressions\\4.3.0\\system.text.regularexpressions.4.3.0.nupkg.sha512",
     "C:\\Users\\lyagu\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
     "C:\\Users\\lyagu\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
