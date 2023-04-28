@@ -6,6 +6,11 @@ namespace TopologyProject
     {
         public DbSet<FeatureModel> Features { get; set; } = null!;
 
+        ~FeaturesDbContext()
+        {
+            Dispose();
+        }
+
         public FeaturesDbContext(DbContextOptions options) : base(options)
         {
             Database.EnsureCreated();

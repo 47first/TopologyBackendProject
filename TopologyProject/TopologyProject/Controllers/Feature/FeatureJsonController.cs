@@ -8,30 +8,23 @@ namespace TopologyProject
     {
         private const string _featureJsonCacheName = "featureJson";
 
-        private FeaturesDbContext _featuresDb;
         private IMemoryCache _memoryCache;
         private string _featuresJsonPath;
 
-        public FeatureJsonController(FeaturesDbContext featuresDb, IMemoryCache memoryCache)
+        public FeatureJsonController(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache;
-            _featuresDb = featuresDb;
 
             _featuresJsonPath = Path.Combine(Environment.CurrentDirectory, "wwwroot", "features.json");
         }
 
         [HttpGet]
-        public IActionResult Import()
-        {
-            return View();
-        }
+        public IActionResult Import() => View();
 
         [HttpPost]
         public IActionResult ImportFeatures()
         {
             var formFiles = HttpContext.Request.Form.Files;
-
-            Console.WriteLine($"Files: {formFiles.Count()}");
 
             if (formFiles.Any())
             {
