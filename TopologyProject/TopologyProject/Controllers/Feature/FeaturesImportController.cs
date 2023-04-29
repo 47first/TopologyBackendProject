@@ -56,13 +56,13 @@ namespace TopologyProject
             try
             {
                 deserializedObject = JsonSerializer.Deserialize<T>(json);
-                return true;
             }
             catch
             {
                 deserializedObject = default;
-                return false;
             }
+
+            return deserializedObject == default;
         }
     }
 }
