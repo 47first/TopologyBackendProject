@@ -39,7 +39,7 @@ namespace TopologyProject
         {
             writer.WriteStartArray();
 
-            foreach (var coordinate in lineString.lines)
+            foreach (var coordinate in lineString.points)
                 WriteCoordinate(writer, coordinate);
 
             writer.WriteEndArray();

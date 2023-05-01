@@ -12,7 +12,7 @@ namespace TopologyProject
 
         public FeaturesImportController(IMemoryCache memoryCache) : base(memoryCache)
         {
-            _defaultFeaturesJsonPath = Path.Combine(Environment.CurrentDirectory, "Server Only Data", "defaultFeatures.json");
+            _defaultFeaturesJsonPath = Path.Combine(Environment.CurrentDirectory, "Server Data", "defaultFeatures.json");
         }
 
         [HttpGet]

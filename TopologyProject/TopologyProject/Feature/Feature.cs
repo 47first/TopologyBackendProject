@@ -7,12 +7,13 @@ namespace TopologyProject
     {
         public string Type { get; set; } = null!;
         public string Id { get; set; } = null!;
+        public int? GroupId { get; set; }
         public Dictionary<string, string>? Properties { get; set; }
         [JsonConverter(typeof(GeomentryJsonConverter))]public Geometry Geometry { get; set; } = null!;
 
-        public FeatureModel ToFeatureModel()
+        public FeatureDbModel ToFeatureModel()
         {
-            var featureModel = new FeatureModel();
+            var featureModel = new FeatureDbModel();
 
             featureModel.Id = Id;
             featureModel.Json = JsonSerializer.Serialize(this);

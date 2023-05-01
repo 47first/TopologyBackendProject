@@ -87,7 +87,7 @@ namespace TopologyProject
                 if (reader.TokenType == JsonTokenType.EndArray)
                     return;
 
-                lineString.lines.Add(GetCoordinates(ref reader));
+                lineString.points.Add(GetCoordinates(ref reader));
             }
         }
 

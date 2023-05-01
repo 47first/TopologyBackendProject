@@ -21,6 +21,6 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "api",
-    pattern: "api/{controller=Features}/{action=GetJson}");
+    pattern: "api/{controller=Features}/{action=Import}");
 
 app.Run();

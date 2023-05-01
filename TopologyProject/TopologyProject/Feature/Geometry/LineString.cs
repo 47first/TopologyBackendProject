@@ -2,8 +2,8 @@
 {
     public class LineString : Geometry
     {
-        public override IEnumerable<Coordinate> Coordinates => lines;
+        public override IEnumerable<Coordinate> Coordinates => points;
 
-        public readonly List<Coordinate> lines = new();
+        public readonly List<Coordinate> points = new();
     }
 }
