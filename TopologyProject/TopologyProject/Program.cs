@@ -1,26 +1,40 @@
 using Microsoft.EntityFrameworkCore;
-using TopologyProject;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace TopologyProject
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
 
-string? connectionString = builder.Configuration.GetConnectionString("FeatureCollection");
+            ConfigureServices(builder.Services, builder.Configuration);
 
-builder.Services.AddDbContext<FeaturesDbContext>(options => options.UseSqlServer(connectionString));
-builder.Services.AddControllersWithViews();
+            var app = builder.Build();
 
-var app = builder.Build();
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+            app.UseRouting();
 
-app.UseRouting();
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}");
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}");
+            app.MapControllerRoute(
+                name: "api",
+                pattern: "api/{controller=Features}/{action=Import}");
 
-app.MapControllerRoute(
-    name: "api",
-    pattern: "api/{controller=Features}/{action=Import}");
+            app.Run();
 
-app.Run();
+        }
+
+        private static void ConfigureServices(IServiceCollection services, ConfigurationManager configuration)
+        {
+            string? connectionString = configuration.GetConnectionString("FeatureCollection");
+            services.AddDbContext<FeaturesDbContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddControllersWithViews();
+        }
+    }
+}

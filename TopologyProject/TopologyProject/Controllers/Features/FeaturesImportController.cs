@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.AspNetCore.Mvc;
+using TopologyProject.Topology;
 using System.Text.Json;
 using IoFile = System.IO.File;
 
@@ -9,10 +10,12 @@ namespace TopologyProject
     public class FeaturesImportController : FeaturesJsonController
     {
         private string _defaultFeaturesJsonPath;
+        private FeaturesDbContext _featuresDb;
 
-        public FeaturesImportController(IMemoryCache memoryCache) : base(memoryCache)
+        public FeaturesImportController(IMemoryCache memoryCache, FeaturesDbContext featuresDb) : base(memoryCache)
         {
             _defaultFeaturesJsonPath = Path.Combine(Environment.CurrentDirectory, "Server Data", "defaultFeatures.json");
+            _featuresDb = featuresDb;
         }
 
         [HttpGet]
@@ -31,10 +34,41 @@ namespace TopologyProject
             if (TryDeserializeJson(json, out FeatureCollection? featureCollection) == false)
                 return BadRequest();
 
-            WriteFeaturesInJson(json);
+            WriteFeaturesInFile(JsonSerializer.Serialize(featureCollection));
             ResetCacheValue();
 
+            Console.WriteLine($"featureCollection is null: {featureCollection is null}");
+
+            var features = featureCollection.Features;
+
+            Console.WriteLine($"Features Count: {features.Count}");
+
+            //GroupFeatures(features);
+
+            WriteFeaturesInDb(features);
+
             return Ok();
+        }
+
+        private void GroupFeatures(IEnumerable<Feature> features)
+        {
+            var distributor = new GroupDistributor();
+
+            distributor.DistributeByGroups(features);
+        }
+
+        private void WriteFeaturesInDb(IEnumerable<Feature> features)
+        {
+            _featuresDb.Clear();
+
+            foreach (var feature in features)
+            {
+                var featureModel = feature.ToFeatureModel();
+
+                _featuresDb.Features.Add(featureModel);
+            }
+
+            _featuresDb.SaveChanges();
         }
 
         private bool TryDeserializeJson<T>(string json, out T? deserializedObject)
@@ -43,7 +77,7 @@ namespace TopologyProject
 
             try
             {
-                deserializedObject = JsonSerializer.Deserialize<T>(json);
+                deserializedObject = JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions() { PropertyNameCaseInsensitive = true });
                 return true;
             }
             catch
@@ -52,7 +86,7 @@ namespace TopologyProject
             }
         }
 
-        private void WriteFeaturesInJson(string json) => IoFile.WriteAllText(featuresJsonPath, json);
+        private void WriteFeaturesInFile(string json) => IoFile.WriteAllText(featuresJsonPath, json);
 
         private void ResetCacheValue() => MemoryCache.Remove(jsonBytesKey);
 

@@ -1,12 +1,12 @@
 ﻿namespace TopologyProject.Topology
 {
-    public class TopologySorter
+    public class GroupDistributor
     {
         private int _lastGroupId = -1;
 
-        public void SetGroupsIn(IEnumerable<Feature> features)
+        public void DistributeByGroups(IEnumerable<Feature> features)
         {
-            var topology = CreateTopology(features);
+            var topology = features.CreateTopology();
 
             GroupComponents(topology);
         }
@@ -17,31 +17,11 @@
                 GroupComponentAndChildren(component);
         }
 
-        private List<TopologyComponent> CreateTopology(IEnumerable<Feature> features)
-        {
-            List<TopologyComponent> topology = new();
-
-            foreach (var feature in features)
-                topology.Add(new(feature));
-
-            foreach (var component in topology)
-                AddConnections(component, topology);
-
-            return topology;
-        }
-
-        private void AddConnections(TopologyComponent mainComponent, IEnumerable<TopologyComponent> topology)
-        {
-            var connectedFeatures = topology.Where(component =>
-                component != mainComponent &&
-                component.Feature.Geometry.MatchAnyCoordinate(component.Feature.Geometry.Coordinates));
-
-            mainComponent.AddFeatureConnections(connectedFeatures);
-        }
-
         private void GroupComponentAndChildren(TopologyComponent mainComponent)
         {
-            if (mainComponent.Feature.GroupId >= 0)
+            int? groupId = mainComponent.Feature.GroupId;
+
+            if (groupId is not null && groupId >= 0)
                 return;
 
             GroupComponentAndChildren(mainComponent, GetNextGroupLevel());
@@ -71,26 +51,5 @@
         }
 
         private GroupLevel GetNextGroupLevel() => new(++_lastGroupId, 0);
-
-        public class TopologyComponent
-        {
-            private List<TopologyComponent>? _childComponents;
-            public Feature Feature { get; private set; }
-
-            public TopologyComponent(Feature feature)
-            {
-                Feature = feature;
-            }
-
-            public bool HasAnyConnections => _childComponents is not null;
-
-            public IEnumerable<TopologyComponent>? ConnectedComponents => _childComponents;
-
-            public void AddFeatureConnections(IEnumerable<TopologyComponent> connectedComponents)
-            {
-                _childComponents ??= new();
-                _childComponents.AddRange(connectedComponents);
-            }
-        }
     }
 }

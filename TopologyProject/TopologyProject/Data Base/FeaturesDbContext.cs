@@ -8,12 +8,13 @@ namespace TopologyProject
 
         ~FeaturesDbContext() => Dispose();
 
-        public FeaturesDbContext(DbContextOptions options) : base(options) => Database.EnsureCreated();
-
-        public void ClearFeatures()
+        public FeaturesDbContext(DbContextOptions options) : base(options)
         {
-            foreach (var featureModel in Features)
-                Features.Remove(featureModel);
+            Database.EnsureDeleted();
+
+            Database.EnsureCreated();
         }
+
+        public void Clear() => Features.RemoveRange(Features);
     }
 }
