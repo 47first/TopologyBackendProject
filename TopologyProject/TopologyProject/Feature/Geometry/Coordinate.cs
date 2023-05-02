@@ -12,8 +12,6 @@ namespace TopologyProject
             this.y = y;
         }
 
-        public string GetSimplified() => $"({x:0.00}:{y:0.00})";
-
         public static bool operator ==(Coordinate a, Coordinate b)
         {
             return a.x == b.x && a.y == b.y;
