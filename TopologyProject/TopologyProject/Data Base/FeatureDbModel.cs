@@ -10,6 +10,6 @@ namespace TopologyProject
         public int? GroupId { get; set; }
         public string? Json { get; set; }
 
-        public Feature ToFeature() => JsonSerializer.Deserialize<Feature>(Json);
+        public Feature ToFeature() => JsonSerializer.Deserialize<Feature>(Json, Feature.SerializerOptions);
     }
 }
