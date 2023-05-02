@@ -9,19 +9,18 @@
             foreach (var feature in features)
                 topology.Add(new(feature));
 
-            foreach (var component in topology)
-                AddConnections(component, topology);
+            Parallel.ForEach(topology, component => AddConnections(component, topology));
 
             return topology;
         }
 
         private static void AddConnections(TopologyComponent mainComponent, IEnumerable<TopologyComponent> topology)
         {
-            var connectedFeatures = topology.Where(component =>
-                component != mainComponent &&
-                component.Feature.Geometry.MatchAnyCoordinate(component.Feature.Geometry.Coordinates));
-
-            mainComponent.AddFeatureConnections(connectedFeatures);
+            Parallel.ForEach(topology, component => {
+                if(component != mainComponent &&
+                component.Feature.Geometry.MatchAnyCoordinate(mainComponent.Feature.Geometry.Coordinates))
+                    mainComponent.AddFeatureConnection(component);
+            });
         }
     }
 }

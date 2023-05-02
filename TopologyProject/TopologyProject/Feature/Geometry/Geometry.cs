@@ -8,8 +8,13 @@
         {
             foreach (var coordinate in coordinates)
             {
-                if (Coordinates.Contains(coordinate))
+                if (Coordinates.Any(coordinated => coordinated == coordinate))
+                {
+                    Console.Write($"+");
                     return true;
+                }
+
+                Console.Write($"-");
             }
 
             return false;

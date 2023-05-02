@@ -14,10 +14,12 @@
 
         public IEnumerable<TopologyComponent>? ConnectedComponents => _childComponents;
 
-        public void AddFeatureConnections(IEnumerable<TopologyComponent> connectedComponents)
+        public void AddFeatureConnection(TopologyComponent connectedComponent)
         {
-            _childComponents ??= new();
-            _childComponents.AddRange(connectedComponents);
+            if (_childComponents == null)
+                _childComponents = new();
+
+            _childComponents.Add(connectedComponent);
         }
     }
 }

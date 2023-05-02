@@ -44,19 +44,6 @@ namespace TopologyProjectTests
             Assert.AreEqual(result, json);
         }
 
-        [TestMethod]
-        public void pr()
-        {
-            string json = GetTestJson();
-
-            var featureCollection = JsonSerializer.Deserialize<FeatureCollection>(json);
-
-            foreach (var feature in featureCollection.Features)
-                feature.GroupId = 1;
-
-            Console.WriteLine(JsonSerializer.Serialize(featureCollection));
-        }
-
         private string GetTestJson()
         {
             string[] lines = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "features.json"));
