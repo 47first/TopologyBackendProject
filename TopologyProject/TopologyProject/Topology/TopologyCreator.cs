@@ -1,6 +1,4 @@
-﻿using static TopologyProject.Topology.GroupDistributor;
-
-namespace TopologyProject.Topology
+﻿namespace TopologyProject.Topology
 {
     public static class TopologyCreator
     {

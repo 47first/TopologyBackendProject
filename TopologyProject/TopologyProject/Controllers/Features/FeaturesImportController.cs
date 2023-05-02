@@ -31,21 +31,18 @@ namespace TopologyProject
 
         private IActionResult Import(string json)
         {
-            if (TryDeserializeJson(json, out FeatureCollection? featureCollection) == false)
+            if (TryDeserializeJson(json, out FeatureCollection? featureCollection) == false ||
+                featureCollection.Features == null)
                 return BadRequest();
 
-            WriteFeaturesInFile(JsonSerializer.Serialize(featureCollection));
             ResetCacheValue();
-
-            Console.WriteLine($"featureCollection is null: {featureCollection is null}");
 
             var features = featureCollection.Features;
 
-            Console.WriteLine($"Features Count: {features.Count}");
-
-            //GroupFeatures(features);
+            GroupFeatures(features);
 
             WriteFeaturesInDb(features);
+            WriteFeaturesInFile(JsonSerializer.Serialize(featureCollection));
 
             return Ok();
         }

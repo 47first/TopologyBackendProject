@@ -14,24 +14,20 @@
         private void GroupComponents(IEnumerable<TopologyComponent> topologyComponents)
         {
             foreach (var component in topologyComponents)
-                GroupComponentAndChildren(component);
+            {
+                if (IsGroupDefined(component) == false)
+                    GroupComponentAndChildren(component, GetNextGroupLevel());
+            }
         }
 
-        private void GroupComponentAndChildren(TopologyComponent mainComponent)
-        {
-            int? groupId = mainComponent.Feature.GroupId;
-
-            if (groupId is not null && groupId >= 0)
-                return;
-
-            GroupComponentAndChildren(mainComponent, GetNextGroupLevel());
-        }
+        private bool IsGroupDefined(TopologyComponent component) => component.Feature.GroupId is not null;
 
         private void GroupComponentAndChildren(TopologyComponent component, GroupLevel level)
         {
             component.Feature.GroupId = level.GroupId;
 
-            if (component.HasAnyConnections == false)
+            if (IsGroupDefined(component) ||
+                component.HasAnyConnections == false)
                 return;
 
             foreach (var connectedComponent in component.ConnectedComponents)
