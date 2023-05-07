@@ -13,6 +13,7 @@ namespace TopologyProject
         }
 
         [Route("All")]
+        [HttpGet]
         public IActionResult GetAllFeatures()
         {
             var allFeatureModels = _featuresDb.Features;
@@ -21,6 +22,7 @@ namespace TopologyProject
         }
 
         [Route("Group")]
+        [HttpGet]
         public IActionResult GetFeaturesByGroup(int id)
         {
             var groupedFeatureModels = _featuresDb.Features.Where

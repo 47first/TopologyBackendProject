@@ -22,6 +22,7 @@ namespace TopologyProject
         [Route("SetDefault")]
         public IActionResult SetDefault() => ImportFromLocalFile(_defaultFeaturesJsonPath);
 
+        [HttpGet]
         public IActionResult ImportFromLocalFile(string path)
         {
             var fileContent = IoFile.ReadAllText(path);

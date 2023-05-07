@@ -13,6 +13,9 @@ namespace TopologyProject
 
             var app = builder.Build();
 
+            app.UseSwagger();
+            app.UseSwaggerUI();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -34,6 +37,8 @@ namespace TopologyProject
         {
             string? connectionString = configuration.GetConnectionString("FeatureCollection");
             services.AddDbContext<FeaturesDbContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddSwaggerGen();
 
             services.AddControllersWithViews().AddJsonOptions(options =>
                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
