@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using System.Text.Json;
 
 namespace TopologyProject
@@ -38,7 +39,11 @@ namespace TopologyProject
             string? connectionString = configuration.GetConnectionString("FeatureCollection");
             services.AddDbContext<FeaturesDbContext>(options => options.UseSqlServer(connectionString));
 
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+                $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+            });
 
             services.AddControllersWithViews().AddJsonOptions(options =>
                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);

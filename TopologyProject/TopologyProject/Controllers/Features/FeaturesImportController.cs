@@ -6,6 +6,7 @@ using IoFile = System.IO.File;
 
 namespace TopologyProject
 {
+    [Produces("application/json")]
     [Route("Features")]
     public class FeaturesImportController : FeaturesJsonController
     {
@@ -18,12 +19,24 @@ namespace TopologyProject
             _featuresDb = featuresDb;
         }
 
+        /// <summary>
+        /// Set default topology data
+        /// </summary>
+        /// <remarks>
+        /// Use this method to reset topology data
+        /// </remarks>
+        /// <returns>
+        /// Status code
+        /// </returns>
+        /// <response code="200">Success</response>
+        /// <response code="400">Invalid data in default json file</response>
         [HttpGet]
         [Route("SetDefault")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult SetDefault() => ImportFromLocalFile(_defaultFeaturesJsonPath);
 
-        [HttpGet]
-        public IActionResult ImportFromLocalFile(string path)
+        private IActionResult ImportFromLocalFile(string path)
         {
             var fileContent = IoFile.ReadAllText(path);
 
@@ -88,10 +101,25 @@ namespace TopologyProject
 
         private void ResetCacheValue() => MemoryCache.Remove(jsonBytesKey);
 
+        /// <summary>
+        /// Send form with file
+        /// </summary>
+        /// <returns>
+        /// Form
+        /// </returns>
+        /// <response code="200">Success</response>
         [HttpGet]
         [Route("Import")]
         public IActionResult SendImportForm() => View("ImportForm");
 
+        /// <summary>
+        /// Receive user file from form and import data to DB and json file
+        /// </summary>
+        /// <returns>
+        /// Status code
+        /// </returns>
+        /// <response code="200">Success import</response>
+        /// <response code="400">Invalid data in json file</response>
         [HttpPost]
         [Route("Import")]
         public IActionResult ImportFromFormFile()

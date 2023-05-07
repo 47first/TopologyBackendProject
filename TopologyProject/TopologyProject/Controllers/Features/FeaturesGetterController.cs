@@ -12,6 +12,17 @@ namespace TopologyProject
             _featuresDb = db;
         }
 
+        /// <summary>
+        /// Returns FeatureCollection with all features
+        /// </summary>
+        /// <returns>
+        /// FeatureCollection:
+        /// {
+        /// "type": "FeatureCollection",
+        /// "features": [...]
+        /// }
+        /// </returns>
+        /// <response code="200">Success</response>
         [Route("All")]
         [HttpGet]
         public IActionResult GetAllFeatures()
@@ -21,6 +32,17 @@ namespace TopologyProject
             return FeatureCollection(allFeatureModels);
         }
 
+        /// <summary>
+        /// Returns FeatureCollection with features where GroupId matches id parameter
+        /// </summary>
+        /// <returns>
+        /// FeatureCollection:
+        /// {
+        /// "type": "FeatureCollection",
+        /// "features": [...]
+        /// }
+        /// </returns>
+        /// <response code="200">Success</response>
         [Route("Group")]
         [HttpGet]
         public IActionResult GetFeaturesByGroup(int id)

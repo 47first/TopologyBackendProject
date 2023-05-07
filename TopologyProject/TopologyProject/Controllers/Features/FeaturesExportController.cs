@@ -9,6 +9,14 @@ namespace TopologyProject.Controllers.Feature
     {
         public FeaturesExportController(IMemoryCache memoryCache) : base(memoryCache) { }
 
+        /// <summary>
+        /// Export json topology data
+        /// </summary>
+        /// <returns>
+        /// Json file
+        /// </returns>
+        /// <response code="200">File received</response>
+        /// <response code="400">Invalid json data format</response>
         [HttpGet]
         [Route("Export")]
         public IActionResult Export()
