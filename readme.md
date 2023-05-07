@@ -1,3 +1,6 @@
+# Схема БД
+
+  <img src="https://sun9-60.userapi.com/impg/uTHpAZNP6LcpxvKdhQ_qpRwTjLQPWz3kDSmD-w/hhkrvQDMkIA.jpg?size=219x117&quality=96&sign=a5615f9bb4d751b654efdeecda9fbae4&type=album" />
 
 # Проекты
 
